@@ -1,4 +1,6 @@
 build_script:
   - echo "hello"
 test_script:
+  - git config --global user.email "test@test.ca"
+  - git config --global user.name "test"
   - python manage.py test
