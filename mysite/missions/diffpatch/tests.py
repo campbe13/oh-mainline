@@ -35,6 +35,7 @@ from mysite.missions.base.tests import (
 from mysite.base.unicode_sanity import utf8
 from mysite.missions.diffpatch import views, view_helpers
 
+from django.utils.unittest import skipIf
 
 class PatchSingleFileTests(TwillTests):
     fixtures = ['user-paulproteus', 'person-paulproteus']
@@ -304,6 +305,7 @@ class DiffSingleFileTests(TwillTests):
 class DiffRecursiveTests(TwillTests):
     fixtures = ['user-paulproteus', 'person-paulproteus']
 
+    @skipIf(sys.platform.startswith("win"), "requires tar")
     def _calculate_correct_recursive_diff(self, dos_line_endings=False):
         orig_response = self.client.get(
             reverse(views.diffrecursive_get_original_tarball))
