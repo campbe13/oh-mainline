@@ -1,2 +1,4 @@
+build_script:
+  - echo "hello"
 test_script:
   - python manage.py test
