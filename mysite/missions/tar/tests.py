@@ -20,8 +20,9 @@ from mysite.base.tests import TwillTests
 from mysite.missions.base.tests import *
 from mysite.missions.tar import views
 from mysite.missions.tar import view_helpers
+from django.utils.unittest import skipIf
 
-
+@skipIf(sys.platform.startswith("win"), "requires tar")
 class TarUploadTests(TwillTests):
     fixtures = ['user-paulproteus', 'person-paulproteus']
 
@@ -43,6 +44,7 @@ class TarUploadTests(TwillTests):
         self.assertEqual(response.status_code, 404)
 
 
+@skipIf(sys.platform.startswith("win"), "requires tar")
 class UntarViewTests(TwillTests):
     fixtures = ['user-paulproteus', 'person-paulproteus']
 

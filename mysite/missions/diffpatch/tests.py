@@ -305,7 +305,6 @@ class DiffSingleFileTests(TwillTests):
 class DiffRecursiveTests(TwillTests):
     fixtures = ['user-paulproteus', 'person-paulproteus']
 
-    @skipIf(sys.platform.startswith("win"), "requires tar")
     def _calculate_correct_recursive_diff(self, dos_line_endings=False):
         orig_response = self.client.get(
             reverse(views.diffrecursive_get_original_tarball))
