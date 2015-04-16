@@ -21,15 +21,17 @@ from mysite.missions.base.tests import *
 from mysite.missions.tar import views
 from mysite.missions.tar import view_helpers
 from django.utils.unittest import skipIf
+import sys
 
-@skipIf(sys.platform.startswith("win"), "requires tar")
 class TarUploadTests(TwillTests):
     fixtures = ['user-paulproteus', 'person-paulproteus']
 
+    @skipIf(sys.platform.startswith("win"), "requires tar")
     def setUp(self):
         TwillTests.setUp(self)
         self.client = self.login_with_client()
 
+    @skipIf(sys.platform.startswith("win"), "requires tar")
     def test_tar_file_downloads(self):
         for filename, content in view_helpers.TarMission.FILES.iteritems():
             response = self.client.get(
@@ -38,20 +40,22 @@ class TarUploadTests(TwillTests):
                              'attachment; filename=%s' % filename)
             self.assertEqual(response.content, content)
 
+    @skipIf(sys.platform.startswith("win"), "requires tar")
     def test_tar_file_download_404(self):
         response = self.client.get(
             reverse(views.file_download, kwargs={'name': 'doesnotexist.c'}))
         self.assertEqual(response.status_code, 404)
 
 
-@skipIf(sys.platform.startswith("win"), "requires tar")
 class UntarViewTests(TwillTests):
     fixtures = ['user-paulproteus', 'person-paulproteus']
 
+    @skipIf(sys.platform.startswith("win"), "requires tar")
     def setUp(self):
         TwillTests.setUp(self)
         self.client = self.login_with_client()
 
+    @skipIf(sys.platform.startswith("win"), "requires tar")
     def test_download_headers(self):
         response = self.client.get(
             reverse(views.download_tarball_for_extract_mission))
